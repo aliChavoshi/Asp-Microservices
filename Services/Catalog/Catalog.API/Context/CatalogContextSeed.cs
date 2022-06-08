@@ -2,7 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace Catalog.API.Data;
+namespace Catalog.API.Context;
 
 public class CatalogContextSeed
 {
