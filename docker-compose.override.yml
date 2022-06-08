@@ -8,8 +8,17 @@ services:
       -  "27017:27017"
     restart: always
     volumes:
-      -  catalogdb_data:/data/db
+      -  catalogdb_data:/data/db #save data in mongodb
   
+  manageMongo: #this container for manage mongodb
+    container_name: manageMongo
+    ports:
+      - "3000:3000"
+    depends_on:
+      - catalogdb
+    volumes:
+      - manageMongo:/data/db
+
   catalog.api:
     container_name: catalog.api
     environment:

@@ -5,6 +5,9 @@ services:
   catalogdb:
     image: mongo
   
+  manageMongo:
+    image: mongoclient/mongoclient
+
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:
@@ -13,3 +16,4 @@ services:
 
 volumes:
   catalogdb_data:
+  manageMongo:
