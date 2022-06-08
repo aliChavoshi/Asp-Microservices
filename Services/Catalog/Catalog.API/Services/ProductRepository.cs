@@ -37,15 +37,18 @@ public class ProductRepository : IProductRepository
         return await _context.Products.Find(filter).ToListAsync();
     }
 
-    public async Task AddProduct(Product product)
+    public async Task<Product> AddProduct(Product product)
     {
         await _context.Products.InsertOneAsync(product);
+        return product;
     }
 
-    public async Task<bool> UpdateProduct(Product product)
+    public async Task<Product> UpdateProduct(Product product)
     {
         var result = await _context.Products.ReplaceOneAsync(x => x.Id == product.Id, product);
-        return result.IsAcknowledged && result.ModifiedCount > 0;
+        if (result.IsAcknowledged && result.ModifiedCount > 0)
+            return product;
+        return null;
     }
 
     public async Task<bool> DeleteProduct(string id)
