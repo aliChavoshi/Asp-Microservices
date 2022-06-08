@@ -1,8 +1,21 @@
 version: '3.4'
 
 services:
+
+  catalogdb:
+    container_name: catalogdb
+    ports:
+      -  "27017:27017"
+    restart: always
+    volumes:
+      -  catalogdb_data:/data/db
+  
   catalog.api:
+    container_name: catalog.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=mongodb://catalogdb:27017" #from appsettings.json and override
     ports:
-      - "80"
+      - "8000:80"
+    depends_on:
+       - catalogdb
