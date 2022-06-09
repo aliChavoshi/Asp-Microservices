@@ -2,7 +2,9 @@ version: '3.4'
 
 services:
 
-  catalogdb:
+  ################Catalog###################
+  
+  catalogdb: #catalog database port 27017
     container_name: catalogdb
     ports:
       -  "27017:27017"
@@ -10,7 +12,7 @@ services:
     volumes:
       -  catalogdb_data:/data/db #save data in mongodb
   
-  manageMongo: #this container for manage mongodb
+  manageMongo: #this container for manage mongodb port 3000
     container_name: manageMongo
     ports:
       - "3000:3000"
@@ -19,7 +21,7 @@ services:
     volumes:
       - manageMongo:/data/db
 
-  catalog.api:
+  catalog.api: #port 8000
     container_name: catalog.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -28,3 +30,35 @@ services:
       - "8000:80"
     depends_on:
        - catalogdb
+  
+  ################Basket#####################
+       
+  basketdb: #basket database port 6379
+    container_name: basketdb
+    restart: always
+    ports:
+      - 6379:6379
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - basketdb_data:/data  
+
+  manageRedis: #this container for manage redis port 8081
+    container_name: manageRedis
+    environment:
+      - REDIS_HOSTS=local:basketdb:6379
+      - HTTP_USER=admin
+      - HTTP_PASSWORD=admin
+    ports:
+      - 8081:8081
+    depends_on:
+      - basketdb
+      
+  basket.api: #port 8001
+    container_name: basket.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConfigurationRedis:ConnectionString=basketdb:6379"
+    depends_on:
+      - basketdb
+    ports:
+      - "8001:80"
