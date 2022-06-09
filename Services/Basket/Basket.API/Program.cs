@@ -1,3 +1,6 @@
+using Basket.API.Repositories;
+using Basket.API.Services;
+
 namespace Basket.API;
 
 public class Program
@@ -10,6 +13,8 @@ public class Program
         {
             options.Configuration = builder.Configuration["ConfigurationRedis:ConnectionString"];
         });
+        //DI
+        builder.Services.AddScoped<IBasketRepository, BasketRepository>();
         // Add services to the container.
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

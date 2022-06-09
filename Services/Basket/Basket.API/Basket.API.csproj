@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Entities\" />
     <Folder Include="Services\" />
   </ItemGroup>
