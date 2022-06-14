@@ -30,6 +30,7 @@
 	<ItemGroup>
 		<Folder Include="Entities\" />
 		<Folder Include="Context\" />
+		<Folder Include="Extensions\" />
 		<Folder Include="Services\" />
 		<Folder Include="Repositories\" />
 	</ItemGroup>

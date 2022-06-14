@@ -1,4 +1,5 @@
 using Discount.API.Context;
+using Discount.API.Extensions;
 using Discount.API.Repositories;
 using Discount.API.Services;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 //connection string
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -19,7 +21,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
 var app = builder.Build();
-
+//migrations db
+app.MigrateDatabase<ApplicationDbContext>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
