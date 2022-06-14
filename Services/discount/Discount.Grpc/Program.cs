@@ -1,5 +1,6 @@
 using Discount.Grpc.Context;
 using Discount.Grpc.Extensions;
+using Discount.Grpc.Mapping;
 using Discount.Grpc.Repositories;
 using Discount.Grpc.Services;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
+builder.Services.AddAutoMapper(typeof(Mapping));
 var app = builder.Build();
 //migrations in database
 app.MigrateDatabase<ApplicationDbContext>();
