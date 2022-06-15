@@ -44,6 +44,12 @@ services:
       context: .
       dockerfile: Services/discount/Discount.API/Dockerfile
 
+  discount.grpc:
+    image: ${DOCKER_REGISTRY-}discountgrpc
+    build:
+      context: .
+      dockerfile: Services/discount/Discount.Grpc/Dockerfile
+
 volumes:
   catalogdb_data:
   manageMongo:
