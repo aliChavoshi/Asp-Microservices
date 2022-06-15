@@ -23,7 +23,7 @@ public class DiscountService : DiscountProtoService.DiscountProtoServiceBase
     {
         var coupon = await _discountRepository.Get(request.ProductName);
         _logger.LogInformation($"Getting discount for product {request.ProductName}");
-        if (coupon == null) throw new RpcException(new Status(StatusCode.NotFound, "Discount not found"));
+        // if (coupon == null) throw new RpcException(new Status(StatusCode.NotFound, "Discount not found"));
         return _mapper.Map<CouponModel>(coupon);
     }
 

@@ -16,7 +16,7 @@ public class DiscountRepository : IDiscountRepository
 
     public async Task<Coupon> Get(string productName)
     {
-        return await _context.Coupons.FirstOrDefaultAsync(c => c.ProductName == productName);
+        return await _context?.Coupons?.FirstOrDefaultAsync(c => c.ProductName == productName)!;
     }
 
     public async Task<List<Coupon>> Get()

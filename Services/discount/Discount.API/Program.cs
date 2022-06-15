@@ -22,7 +22,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
 var app = builder.Build();
 //migrations db
-app.MigrateDatabase<ApplicationDbContext>();
+await app.MigrateDatabase();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

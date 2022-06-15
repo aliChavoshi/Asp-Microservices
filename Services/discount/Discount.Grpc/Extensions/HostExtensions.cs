@@ -1,62 +1,37 @@
-﻿using Npgsql;
+﻿using Discount.Grpc.Context;
+using Discount.Grpc.Entities;
+using Discount.Grpc.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace Discount.Grpc.Extensions;
 
 public static class HostExtensions
 {
-    public static IHost MigrateDatabase<TContext>(this IHost host, int? retry = 0)
+    public static async Task<IHost> MigrateDatabase(this IHost host)
     {
-        var retryForAvailability = retry.Value;
-
         using var scope = host.Services.CreateScope();
         var services = scope.ServiceProvider;
-        var configuration = services.GetRequiredService<IConfiguration>();
-        var logger = services.GetRequiredService<ILogger<TContext>>();
-
-        try
+        var discountRepository = services.GetRequiredService<IDiscountRepository>();
+        var context = services.GetRequiredService<ApplicationDbContext>();
+        if (await context.Coupons.AnyAsync()) return host;
+        var coupons = new List<Coupon>
         {
-            logger.LogInformation("Migrating postresql database.");
-
-            using var connection = new NpgsqlConnection
-                (configuration.GetConnectionString("DefaultConnection"));
-            connection.Open();
-
-            using var command = new NpgsqlCommand
+            new()
             {
-                Connection = connection
-            };
-
-            command.CommandText = "DROP TABLE IF EXISTS Coupons";
-            command.ExecuteNonQuery();
-
-            command.CommandText = @"CREATE TABLE Coupons(Id SERIAL PRIMARY KEY, 
-                                                                ProductName VARCHAR(24) NOT NULL,
-                                                                Description TEXT,
-                                                                Amount INT)";
-            command.ExecuteNonQuery();
-
-            command.CommandText =
-                "INSERT INTO Coupons(ProductName, Description, Amount) VALUES('IPhone X', 'IPhone Discount', 150);";
-            command.ExecuteNonQuery();
-
-            command.CommandText =
-                "INSERT INTO Coupons(ProductName, Description, Amount) VALUES('Samsung 10', 'Samsung Discount', 100);";
-            command.ExecuteNonQuery();
-
-            logger.LogInformation("Migrated postresql database.");
-        }
-        catch (NpgsqlException ex)
-        {
-            logger.LogError(ex, "An error occurred while migrating the postresql database");
-
-            if (retryForAvailability < 50)
+                ProductName = "IPhone X",
+                Amount = 150,
+                Description = "IPhone Discount",
+            },
+            new()
             {
-                retryForAvailability++;
-                Thread.Sleep(2000);
-                host.MigrateDatabase<TContext>(retryForAvailability);
+                ProductName = "Samsung 10",
+                Description = "Samsung Discount",
+                Amount = 100
             }
-        }
-
+        };
+        foreach (var coupon in coupons)
+            await discountRepository.Create(coupon);
         return host;
     }
 }

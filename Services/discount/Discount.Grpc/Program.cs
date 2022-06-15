@@ -21,8 +21,7 @@ builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
 builder.Services.AddAutoMapper(typeof(Mapping));
 var app = builder.Build();
 //migrations in database
-app.MigrateDatabase<ApplicationDbContext>();
-
+await app.MigrateDatabase();
 // Configure the HTTP request pipeline.
 app.MapGrpcService<DiscountService>();
 app.MapGet("/",
