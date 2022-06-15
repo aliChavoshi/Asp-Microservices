@@ -38,7 +38,6 @@ services:
     restart: always
     ports:
       - 6379:6379
-    command: ["redis-server", "--appendonly", "yes"]
     volumes:
       - basketdb_data:/data  
 
