@@ -45,6 +45,6 @@ public class DiscountRepository : IDiscountRepository
     public async Task<bool> Delete(string productName)
     {
         var coupon = await Get(productName);
-        return await Delete(coupon);
+        return await Delete(coupon).ConfigureAwait(false);
     }
 }

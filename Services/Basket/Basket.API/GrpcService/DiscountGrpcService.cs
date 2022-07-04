@@ -16,4 +16,9 @@ public class DiscountGrpcService
         var discountReq = new GetDiscountRequest {ProductName = productName};
         return await _discountProtoService.GetDiscountAsync(discountReq);
     }
+
+    public async Task<CouponModel> CreateDiscount(CreateDiscountRequest request)
+    {
+        return await _discountProtoService.CreateDiscountAsync(request);
+    }
 }

@@ -16,14 +16,14 @@ public class DiscountRepository : IDiscountRepository
         _context = context;
     }
 
-    public async Task<Coupon> Get(string productName)
+    public Task<Coupon> Get(string productName)
     {
-        return await _context.Coupons.FirstOrDefaultAsync(c => c.ProductName == productName);
+        return _context.Coupons.FirstOrDefaultAsync(c => c.ProductName == productName);
     }
 
-    public async Task<List<Coupon>> Get()
+    public Task<List<Coupon>> Get()
     {
-        return await _context.Coupons.ToListAsync();
+        return _context.Coupons.ToListAsync();
     }
 
     public async Task<bool> Create(Coupon coupon)
@@ -47,6 +47,6 @@ public class DiscountRepository : IDiscountRepository
     public async Task<bool> Delete(string productName)
     {
         var coupon = await Get(productName);
-        return await Delete(coupon);
+        return await Delete(coupon).ConfigureAwait(false);
     }
 }

@@ -30,7 +30,7 @@ services:
       context: .
       dockerfile: Services/Basket/Basket.API/Dockerfile
 
-  ################ Discount #####################
+  ################ Discount with GRPC #####################
   
   discountdb:
     image: postgres
