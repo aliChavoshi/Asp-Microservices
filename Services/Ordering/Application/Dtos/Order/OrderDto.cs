@@ -1,9 +1,13 @@
-﻿using Domain.Common;
+﻿namespace Application.Dtos.Order;
 
-namespace Domain.Entities;
-
-public record Order : EntityBase
+public class OrderDto
 {
+    public int Id { get; protected set; }
+    public string CreatedBy { get; set; }
+    public DateTime CreatedDate { get; set; }
+    public string LastModifiedBy { get; set; }
+    public DateTime LastModifiedDate { get; set; }
+
     public string UserName { get; set; }
     public decimal TotalPrice { get; set; }
 

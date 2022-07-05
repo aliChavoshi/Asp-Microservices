@@ -1,6 +1,6 @@
 ﻿namespace Domain.Common;
 
-public abstract class EntityBase
+public record EntityBase
 {
     public int Id { get; protected set; }
     public string CreatedBy { get; set; }
