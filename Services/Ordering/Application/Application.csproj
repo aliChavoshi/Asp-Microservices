@@ -16,7 +16,6 @@
     <Folder Include="Behavirours\" />
     <Folder Include="Dtos\Order\" />
     <Folder Include="Features\Orders\Commands\CheckoutOrder\" />
-    <Folder Include="Features\Orders\Commands\UpdateOrder\" />
     <Folder Include="Features\Orders\Queries\GetOrderList\" />
     <Folder Include="Mappings\" />
   </ItemGroup>
