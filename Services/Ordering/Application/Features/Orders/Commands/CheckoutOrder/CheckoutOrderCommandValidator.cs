@@ -6,7 +6,8 @@ public class CheckoutOrderCommandValidator : AbstractValidator<CheckoutOrderComm
 {
     public CheckoutOrderCommandValidator()
     {
-        RuleFor(x => x.CardNumber).NotEmpty().WithMessage("card number is required").MaximumLength(50)
+        RuleFor(x => x.CardNumber)
+            .NotEmpty().WithMessage("card number is required").MaximumLength(50)
             .WithMessage("{CardNumber} check the length");
     }
 }

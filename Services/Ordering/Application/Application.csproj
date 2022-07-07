@@ -16,8 +16,10 @@
     <Folder Include="Behavirours\" />
     <Folder Include="Dtos\Order\" />
     <Folder Include="Features\Orders\Commands\CheckoutOrder\" />
+    <Folder Include="Features\Orders\Commands\DeleteOrder\" />
     <Folder Include="Features\Orders\Queries\GetOrderList\" />
     <Folder Include="Mappings\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
 
   <ItemGroup>
