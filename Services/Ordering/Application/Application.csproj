@@ -13,7 +13,7 @@
   <ItemGroup>
     <Folder Include="Contracts\Infrastructure\" />
     <Folder Include="Contracts\Persistence\" />
-    <Folder Include="Behavirours\" />
+    <Folder Include="Behaviour\" />
     <Folder Include="Dtos\Order\" />
     <Folder Include="Features\Orders\Commands\CheckoutOrder\" />
     <Folder Include="Features\Orders\Commands\DeleteOrder\" />
