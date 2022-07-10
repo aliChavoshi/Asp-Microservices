@@ -11,11 +11,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Mail\" />
+    <Folder Include="Repositories\" />
     <Folder Include="Persistence\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.6" />
+    <PackageReference Include="SendGrid" Version="9.28.0" />
   </ItemGroup>
 
 </Project>

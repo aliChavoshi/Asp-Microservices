@@ -4,5 +4,5 @@ namespace Application.Contracts.Infrastructure;
 
 public interface IEmailService
 {
-    Task<bool> SendEmail(Email email);
+    Task<bool> SendEmail(Email emailSend);
 }
