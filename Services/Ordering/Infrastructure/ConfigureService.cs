@@ -13,7 +13,7 @@ namespace Infrastructure;
 public static class ConfigureService
 {
     public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
-    {
+    { 
         services.AddDbContext<OrderContext>(options =>
         {
             options.UseSqlServer(configuration.GetConnectionString("OrderingConnectionString"));
