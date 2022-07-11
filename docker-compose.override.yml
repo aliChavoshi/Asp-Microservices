@@ -87,8 +87,8 @@ services:
     volumes:
       - managePostgres:/root/.pgadmin
     environment:
-      - PGADMIN_DEFAULT_EMAIL=user@domain.com
-      - PGADMIN_DEFAULT_PASSWORD=SuperSecret
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
       
   discount.api: #Port 8002
     container_name: discount.api
@@ -133,3 +133,12 @@ services:
       - "ConnectionStrings:OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=SwN12345678;"
     ports:
       - "8004:80"
+
+  ################# RabbitMQ #####################
+
+  rabbitmq: #Port : 5672,15672
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - 5672:5672
+      - 15672:15672

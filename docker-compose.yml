@@ -59,7 +59,12 @@ services:
     build:
       context: .
       dockerfile: Services/Ordering/API/Dockerfile
+  
+  ################ RabbitMQ #####################
 
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+  
 volumes:
   catalogdb_data:
   manageMongo:

@@ -13,6 +13,8 @@ public static class HostExtensions
         var services = scope.ServiceProvider;
         var discountRepository = services.GetRequiredService<IDiscountRepository>();
         var context = services.GetRequiredService<ApplicationDbContext>();
+        await context.Database.EnsureCreatedAsync();
+        await context.Database.MigrateAsync();
         if (await context.Coupons.AnyAsync()) return host;
         var coupons = new List<Coupon>
         {
