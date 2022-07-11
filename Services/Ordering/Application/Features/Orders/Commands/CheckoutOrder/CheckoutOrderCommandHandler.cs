@@ -23,9 +23,10 @@ public class CheckoutOrderCommandHandler : IRequestHandler<CheckoutOrderCommand,
 
     public async Task<int> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
     {
-        // 1. Create Order
-        // 2. Send Email To user
-        // 3. Return order Id
+        // 1. Send Request
+        // 2. Create New Order
+        // 3. Send Email 
+        // 4. Return OrderId
         var order = _mapper.Map<Order>(request);
         var newOrder = await _orderRepository.AddAsync(order).ConfigureAwait(false);
         await SendEmail(newOrder);
