@@ -2,6 +2,7 @@ using Basket.API.GrpcService;
 using Basket.API.Repositories;
 using Basket.API.Services;
 using Discount.Grpc.Protos;
+using MassTransit;
 
 namespace Basket.API;
 
@@ -24,6 +25,16 @@ public class Program
         });
         //register grpc service
         builder.Services.AddScoped<DiscountGrpcService>();
+        //rabbitMQ
+        builder.Services.AddMassTransit(options =>
+        {
+            options.UsingRabbitMq((context, configurator) =>
+            {
+                //username:password@localhost:port
+                configurator.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+            });
+        });
+        // builder.Services.AddMassTransitHostedService();
         // Add services to the container.
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
