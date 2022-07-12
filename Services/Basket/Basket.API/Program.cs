@@ -1,4 +1,6 @@
+using System.Reflection;
 using Basket.API.GrpcService;
+using Basket.API.Mapper;
 using Basket.API.Repositories;
 using Basket.API.Services;
 using Discount.Grpc.Protos;
@@ -35,6 +37,8 @@ public class Program
             });
         });
         // builder.Services.AddMassTransitHostedService();
+        //mapper
+        builder.Services.AddAutoMapper(typeof(BasketProfile));
         // Add services to the container.
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
