@@ -64,7 +64,7 @@ public class BasketController : ControllerBase
         //Create basketCheckoutEvent -- set totalPrice on basketCheckout eventMessage
         var eventMessage = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
         eventMessage.TotalPrice = basket.TotalPrice;
-        //send checkout event to rabbitMQ
+        //send checkout event to rabbitMQ => Producer  
         await _publishEndpoint.Publish(eventMessage, cancellationToken);
         //remove the basket
         await _basketRepository.DeleteBasket(basket.UserName);
