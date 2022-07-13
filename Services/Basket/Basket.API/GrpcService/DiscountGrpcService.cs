@@ -14,11 +14,11 @@ public class DiscountGrpcService
     public async Task<CouponModel> GetDiscount(string productName)
     {
         var discountReq = new GetDiscountRequest {ProductName = productName};
-        return await _discountProtoService.GetDiscountAsync(discountReq);
+        return await _discountProtoService.GetDiscountAsync(discountReq).ConfigureAwait(false);
     }
 
     public async Task<CouponModel> CreateDiscount(CreateDiscountRequest request)
     {
-        return await _discountProtoService.CreateDiscountAsync(request);
+        return await _discountProtoService.CreateDiscountAsync(request).ConfigureAwait(false);
     }
 }
